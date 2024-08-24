@@ -10,8 +10,6 @@
 这里举一个简单的例子：
 
 ```cpp
-#include <iostream>
-
 #define LOG(x) (std::cout << __FILE__ << ": " << __LINE__ << ": " \
                           << __PRETTY_FUNCTION__ << ": " << (x) << std::endl)
 
