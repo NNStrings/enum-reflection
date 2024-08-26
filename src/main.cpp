@@ -1,5 +1,4 @@
 #include <iostream>
-// #include <string>
 #include "eref.hpp"
 
 enum Color {

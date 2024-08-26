@@ -7,7 +7,11 @@
 namespace {
 template <typename T, T N>
 const char* get_enum_name_static() {
+#if _MSC_VER
+    return __FUNCSIG__;
+#else
     return __PRETTY_FUNCTION__;
+#endif
 }
 
 template<int Beg, int End, typename F>
@@ -32,9 +36,21 @@ std::string get_enum_name(T n) {
             s = get_enum_name_static<T, static_cast<T>(i)>();
         }
     });
+#if _MSC_VER
+    auto pos1 = s.find(",");
+#else
     auto pos1 = s.find("N = ");
+#endif
+#if _MSC_VER
+    ++pos1;
+#else
     pos1 += 4;
+#endif
+#if _MSC_VER
+    auto pos2 = s.find_first_of(">(", pos1);
+#else
     auto pos2 = s.find_first_of("];", pos1);
+#endif
     return std::move(s.substr(pos1, pos2 - pos1));
 }
 
