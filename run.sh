@@ -2,7 +2,7 @@
 
 set -e
 
-cmake -B build || { echo "cmake configuration failed"; exit 1; }
+cmake -B build  || { echo "cmake configuration failed"; exit 1; }
 
 make -C build || { echo "make build failed"; exit 1; }
 
