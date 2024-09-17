@@ -4,7 +4,7 @@
 #include <string>
 
 /// @brief Hidden implementation details
-namespace {
+namespace details {
 template <typename T, T N>
 const char* get_enum_name_static() {
 #if _MSC_VER
@@ -30,10 +30,10 @@ namespace eref {
 template<typename T, T Beg, T End>
 std::string get_enum_name(T n) {
     std::string s;
-    static_for<Beg, End>([&] (auto ic) {
+    details::static_for<Beg, End>([&] (auto ic) {
         constexpr auto i = ic.value;
         if (n == static_cast<T>(i)) {
-            s = get_enum_name_static<T, static_cast<T>(i)>();
+            s = details::get_enum_name_static<T, static_cast<T>(i)>();
         }
     });
 #if _MSC_VER
